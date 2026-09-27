@@ -60,12 +60,6 @@ export const musicPlaylist = [
     thumbnail: "/thumbnails/alosyo.jpg"
   },
   {
-    title: "Agomonir Gaan (আগমনীর গান)",
-    artist: "Anupam Roy",
-    src: "/audio/Agomonir Gaan (আগমনীর গান) Oriplast Originals S01 E10 Anupam Roy SVF Music.mp3",
-    thumbnail: "thumbnail_defaukt"
-  },
-  {
     title: "Chaarpashe Aalo Hok (চারপাশে আলো হোক)",
     artist: "SVF Music",
     src: "/audio/Chaarpashe Aalo Hok(চারপাশে আলো হোক) Pujo Song of Unity Durga Pujo Bengali Song 2023 SVF Music.mp3",
