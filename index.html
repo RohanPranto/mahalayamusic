@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bodhon - বোধন</title>
+  <link rel="icon" type="image/png" href="/durga (1).png">
+  <meta name="description" content="A premium minimal audio player featuring Mahalaya themes." />
+  <!-- Preconnect to Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Mina:wght@400;700&family=Galada&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="/src/style.css">
+
+  <!-- Firebase SDKs -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getDatabase, ref, onValue, push, onDisconnect, set } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+    // Make available globally for main.js
+    window.FirebaseDB = { initializeApp, getDatabase, ref, onValue, push, onDisconnect, set };
+  </script>
+</head>
+
+<body>
+  <!-- Durga Puja Themed Preloader -->
+  <div id="preloader" class="preloader">
+    <div class="preloader-content">
+
+      <!-- Rotating Alpana / Shimmer Ring -->
+      <div class="preloader-ring-wrapper">
+        <div class="preloader-ring"></div>
+
+        <!-- Divine Trishul & Third Eye SVG -->
+        <div class="preloader-icon">
+          <svg width="60" height="60" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+            <!-- ========================= -->
+            <!--        THIRD EYE          -->
+            <!-- ========================= -->
+
+            <!-- Third eye / Bindi -->
+            <ellipse cx="50" cy="32" rx="5" ry="7" fill="#EF4444" />
+
+            <!-- Third eye flame -->
+            <path d="
+      M50 8
+      C43 15 43 22 50 27
+      C57 22 57 15 50 8Z
+    " fill="#F472B6" />
+
+
+            <!-- ========================= -->
+            <!--       LEFT EYEBROW        -->
+            <!-- ========================= -->
+
+            <path d="
+      M6 36
+      C12 52 27 55 42 59
+      C46 60 49 58 49 55
+      C49 52 46 50 43 48
+      C28 43 17 41 10 30
+      C8 27 4 29 6 36Z
+    " fill="#123B8F" />
+
+            <!-- ========================= -->
+            <!--      RIGHT EYEBROW        -->
+            <!-- ========================= -->
+
+            <path d="
+      M94 36
+      C88 52 73 55 58 59
+      C54 60 51 58 51 55
+      C51 52 54 50 57 48
+      C72 43 83 41 90 30
+      C92 27 96 29 94 36Z
+    " fill="#123B8F" />
+
+
+            <!-- ========================= -->
+            <!--          LEFT EYE         -->
+            <!-- ========================= -->
+
+            <path d="
+      M5 49
+      C16 57 29 57 38 59
+      C44 61 48 65 49 72
+      C42 82 31 87 20 86
+      C10 85 4 78 2 67
+      C1 60 2 54 5 49Z
+    " fill="#123B8F" />
+
+            <!-- Left eye white -->
+            <path d="
+      M7 59
+      C17 65 29 64 38 67
+      C42 68 45 71 47 75
+      C40 82 30 85 21 83
+      C13 81 8 76 6 68
+      C5 64 5 61 7 59Z
+    " fill="#F8FAFC" />
+
+            <!-- Left iris -->
+            <ellipse cx="29" cy="68" rx="7" ry="9" fill="#635BEB" />
+
+            <!-- Left iris highlight -->
+            <ellipse cx="31" cy="66" rx="3" ry="5" fill="#C7D2FE" />
+
+
+            <!-- ========================= -->
+            <!--         RIGHT EYE         -->
+            <!-- ========================= -->
+
+            <path d="
+      M95 49
+      C84 57 71 57 62 59
+      C56 61 52 65 51 72
+      C58 82 69 87 80 86
+      C90 85 96 78 98 67
+      C99 60 98 54 95 49Z
+    " fill="#123B8F" />
+
+            <!-- Right eye white -->
+            <path d="
+      M93 59
+      C83 65 71 64 62 67
+      C58 68 55 71 53 75
+      C60 82 70 85 79 83
+      C87 81 92 76 94 68
+      C95 64 95 61 93 59Z
+    " fill="#F8FAFC" />
+
+            <!-- Right iris -->
+            <ellipse cx="71" cy="68" rx="7" ry="9" fill="#635BEB" />
+
+            <!-- Right iris highlight -->
+            <ellipse cx="69" cy="66" rx="3" ry="5" fill="#C7D2FE" />
+
+
+            <!-- ========================= -->
+            <!--       PINK EYE LINER      -->
+            <!-- ========================= -->
+
+            <path d="
+      M6 55
+      C17 61 29 60 40 64
+      C44 65 47 68 49 71
+      C44 61 35 56 25 55
+      C17 54 11 51 5 47
+      C4 50 5 53 6 55Z
+    " fill="#F472A0" />
+
+            <path d="
+      M94 55
+      C83 61 71 60 60 64
+      C56 65 53 68 51 71
+      C56 61 65 56 75 55
+      C83 54 89 51 95 47
+      C96 50 95 53 94 55Z
+    " fill="#F472A0" />
+
+          </svg>
+        </div>
+      </div>
+
+      <!-- Festive Bengali Text -->
+      <div class="preloader-title">শুভ আগমনী...</div>
+      <div class="preloader-subtext">দেবীপক্ষের সুর প্রস্তুত হচ্ছে</div>
+
+      <!-- Shimmering Progress Bar -->
+      <div class="preloader-progress-track">
+        <div class="preloader-progress-bar"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Background Image Layer -->
+  <div class="bg-layer" id="bg-layer"></div>
+
+  <!-- Main Application Container -->
+  <main class="app-container">
+
+    <!-- Top Bar -->
+    <header class="top-bar">
+      <!-- Left: Live Clock -->
+      <div class="pill clock-pill">
+        <span id="clock" class="clock-time">--:-- --</span>
+        <span class="clock-hover-text"><a style="text-decoration: none;color: rgb(0, 11, 135);" target="_blank"
+            href="https://rohanpranto.netlify.app">by Rohan</a></span>
+      </div>
+      </div>
+
+      <!-- Middle: Countdown -->
+      <div class="pill countdown-pill" id="countdown">
+        Calculating...
+      </div>
+
+      <!-- Right: Real-time Online Count -->
+      <div class="pill online-pill">
+        <span class="online-indicator"></span>
+        <span id="online-count">Connecting...</span>
+      </div>
+    </header>
+
+    <!-- Hero Text  -->
+    <main class="app-container">
+
+
+      <!-- Hero Center Title -->
+      <div class="hero-container">
+        <h1 class="hero-title">আগমনী</h1>
+      </div>
+
+
+    </main>
+
+    <!-- Bottom Area -->
+    <footer class="bottom-area">
+
+      <!-- Action Buttons -->
+      <div class="action-buttons">
+        <button class="pill-btn" id="puja-radio-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="8" y1="6" x2="21" y2="6"></line>
+            <line x1="8" y1="12" x2="21" y2="12"></line>
+            <line x1="8" y1="18" x2="21" y2="18"></line>
+            <line x1="3" y1="6" x2="3.01" y2="6"></line>
+            <line x1="3" y1="12" x2="3.01" y2="12"></line>
+            <line x1="3" y1="18" x2="3.01" y2="18"></line>
+          </svg>
+          PLAYLIST
+          <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+
+        <button class="pill-btn-dhak" id="dhak-btn" class="control-btn dhak-btn" aria-label="Play Dhak">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <ellipse cx="12" cy="6" rx="8" ry="3" />
+            <path d="M4 6v12c0 1.66 3.58 3 8 3s8-1.34 8-3V6" />
+            <path d="M4 12c0 1.66 3.58 3 8 3s8-1.34 8-3" />
+          </svg>
+          DHAK
+        </button>
+      </div>
+
+      <!-- Minimal Horizontal Player -->
+      <div class="minimal-player">
+        <div class="player-left">
+<div class="cd-wrapper">
+  <img src="/mahalaya-bg.png" alt="Cover Art" id="cover-art" class="cover-art" />
+  <div class="cd-hole"></div>
+</div>
+          <div class="player-details">
+            <div class="track-info-header">
+              <div class="track-info">
+                <div class="track-title" id="track-title">Loading...</div>
+                <div class="track-artist" id="track-artist">Please wait</div>
+              </div>
+              <div class="time-display">
+                <span id="current-time">0:00</span> / <span id="total-time">0:00</span>
+              </div>
+            </div>
+
+            <div class="progress-wrapper">
+              <div class="progress-bar-bg" id="progress-bar-bg">
+                <div class="progress-bar-fill" id="progress-bar-fill"></div>
+                <div class="progress-bar-thumb" id="progress-bar-thumb"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="player-right controls">
+          <button id="shuffle-btn" class="control-btn" aria-label="Shuffle">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="16 3 21 3 21 8"></polyline>
+              <line x1="4" y1="20" x2="21" y2="3"></line>
+              <polyline points="21 16 21 21 16 21"></polyline>
+              <line x1="15" y1="15" x2="21" y2="21"></line>
+              <line x1="4" y1="4" x2="9" y2="9"></line>
+            </svg>
+          </button>
+          <button id="prev-btn" class="control-btn" aria-label="Previous">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"
+              stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="19 20 9 12 19 4 19 20" />
+              <line x1="5" x2="5" y1="19" y2="5" />
+            </svg>
+          </button>
+
+          <button id="play-pause-btn" class="control-btn play-btn" aria-label="Play">
+            <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+              fill="currentColor" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="5 3 19 12 5 21 5 3" />
+            </svg>
+            <svg id="pause-icon" class="hidden" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+              viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1" stroke-linecap="round"
+              stroke-linejoin="round">
+              <rect x="6" y="4" width="4" height="16" />
+              <rect x="14" y="4" width="4" height="16" />
+            </svg>
+          </button>
+
+          <button id="next-btn" class="control-btn" aria-label="Next">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"
+              stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="5 4 15 12 5 20 5 4" />
+              <line x1="19" x2="19" y1="5" y2="19" />
+            </svg>
+          </button>
+          <button id="repeat-btn" class="control-btn" aria-label="Repeat">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="17 1 21 5 17 9"></polyline>
+              <path d="M3 11V9a4 4 0 0 1 4-4h14"></path>
+              <polyline points="7 23 3 19 7 15"></polyline>
+              <path d="M21 13v2a4 4 0 0 1-4 4H3"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Playlist Modal Overlay -->
+    <div class="modal-overlay hidden" id="playlist-modal">
+      <div class="playlist-card">
+        <div class="playlist-header">
+          <h3>PLAYLISTS</h3>
+          <button id="close-modal-btn" aria-label="Close">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+        <div class="playlist-tabs">
+          <button class="tab active" id="tab-music">DURGA PUJA MUSIC</button>
+          <button class="tab" id="tab-devotional">DURGA PUJA DEVOTIONAL MUSIC</button>
+        </div>
+        <p class="playlist-desc">The main curated Durga Puja playlist.</p>
+
+        <div class="track-list" id="track-list">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- HTML5 Audio Element (Hidden) -->
+  <audio id="audio-element"></audio>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+
+</html>
