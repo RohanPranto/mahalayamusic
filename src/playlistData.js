@@ -11,7 +11,14 @@ export const musicPlaylist = [
     artist: "Infra",
     src: "/audio/Dugga Ma asche - Infra.mp3",
     thumbnail: "/thumbnails/dugga-ma-asche.jpg"
-  },{
+  },
+  {
+    title: "Khoshmejaje",
+    artist: "Infra · Jakiruddin Khan",
+    src: "/audio/Khoshmejaje.mp3",
+    thumbnail: "/thumbnails/khoshmejaje.png"
+  },
+  {
     title: "Agomonir Gaan (আগমনীর গান)",
     artist: "Anupam Roy | Ori Plast Originals",
     src: "/audio/Agomonir Gaan (আগমনীর গান) Oriplast Originals S01 E10 Anupam Roy SVF Music.mp3",
